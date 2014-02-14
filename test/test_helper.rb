@@ -14,5 +14,7 @@ require "timecop"
 require "verdict"
 require "redis"
 
+Dir["#{File.dirname(__FILE__)}/support/*.rb"].each { |file| require file }
+
 REDIS_HOST = ENV['REDIS_HOST'].nil? ? '127.0.0.1' : ENV['REDIS_HOST']
 REDIS_PORT = (ENV['REDIS_PORT'].nil? ? '6379' : ENV['REDIS_PORT']).to_i
