@@ -59,7 +59,7 @@ class Verdict::Experiment
 
   def storage(subject_storage = nil, options = {})
     return @subject_storage if subject_storage.nil?
-    
+
     @store_unqualified = options[:store_unqualified] if options.has_key?(:store_unqualified)
     @subject_storage = case subject_storage
       when :memory; Verdict::Storage::MemoryStorage.new
@@ -88,6 +88,12 @@ class Verdict::Experiment
 
   def subject_assignment(subject_identifier, group, originally_created_at, temporary = false)
     Verdict::Assignment.new(self, subject_identifier, group, originally_created_at, temporary)
+  end
+
+  def subject_assignment!(*args)
+    assignment = subject_assignment(*args)
+    store_assignment(assignment)
+    assignment
   end
 
   def subject_conversion(subject_identifier, goal, created_at = Time.now.utc)
